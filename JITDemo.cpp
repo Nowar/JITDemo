@@ -17,6 +17,7 @@
 
 void showUsage() {
   std::cerr << "Usage: JITDemo LLVM-IR-file\n";
+  std::cerr << "\n";
   std::cerr << "JITDemo is a trivial JIT-Compiler using LLVM.\n";
   std::cerr << "It reads LLVM module from the input argument, creates a JIT-Compiler, and runs on 'main' function.\n";
   std::cerr << "Note: We assume 'main' needs no arguments.\n";
