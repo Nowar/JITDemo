@@ -1,0 +1,6 @@
+JITDemo is a trivial JIT-Compiler using LLVM.
+It reads LLVM module from the input argument, creates a JIT-Compiler, and runs on 'main' function.
+
+Note: We assume 'main' needs no arguments.
+
+Developed by Nowar (nowar100<at>gmail.com)
