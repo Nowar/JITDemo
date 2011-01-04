@@ -15,10 +15,10 @@
 #include "llvm/Support/IRReader.h"
 #include "llvm/Target/TargetSelect.h"
 
-void showUsage() {
-  std::cerr << "Usage: JITDemo LLVM-IR-file\n";
+void showUsage(char* progName) {
+  std::cerr << "Usage: " << progName << " LLVM-IR-file\n";
   std::cerr << "\n";
-  std::cerr << "JITDemo is a trivial JIT-Compiler using LLVM.\n";
+  std::cerr << progName << " is a trivial JIT-Compiler using LLVM.\n";
   std::cerr << "It reads LLVM module from the input argument, creates a JIT-Compiler, and runs on 'main' function.\n";
   std::cerr << "Note: We assume 'main' needs no arguments.\n";
 }
@@ -49,7 +49,7 @@ void execMainFunc(llvm::ExecutionEngine* ee) {
 
 int main(int argc, char** argv) {
   if (argc != 2) {
-    showUsage();
+    showUsage(argv[0]);
     return 1;
   }
 
