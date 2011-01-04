@@ -15,6 +15,13 @@
 #include "llvm/Support/IRReader.h"
 #include "llvm/Target/TargetSelect.h"
 
+void showUsage() {
+  std::cerr << "Usage: JITDemo LLVM-IR-file\n";
+  std::cerr << "JITDemo is a trivial JIT-Compiler using LLVM.\n";
+  std::cerr << "It reads LLVM module from the input argument, creates a JIT-Compiler, and runs on 'main' function.\n";
+  std::cerr << "Note: We assume 'main' needs no arguments.\n";
+}
+
 llvm::Module* getModuleFromFile(const char* name, llvm::LLVMContext& ctx) {
   llvm::SMDiagnostic srcDiag;
   return llvm::getLazyIRFileModule(name, srcDiag, ctx);
@@ -41,7 +48,7 @@ void execMainFunc(llvm::ExecutionEngine* ee) {
 
 int main(int argc, char** argv) {
   if (argc != 2) {
-    std::cerr << "Usage: " << argv[0] << " LLVM-IR-file\n";
+    showUsage();
     return 1;
   }
 
