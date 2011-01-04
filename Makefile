@@ -1,8 +1,11 @@
-all: JITDemo
+CXXFLAGS += -W -Wall -O3 `llvm-config --cxxflags`
+LDFLAGS += `llvm-config --ldflags --libs`
 
-JITDemo: JITDemo.cpp Makefile
-	clang++ $< -o $@ -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS \
-		`llvm-config --cxxflags --ldflags --libs` -W -Wall -O3 
+all: out/JITDemo
+
+out/%: src/%.cpp Makefile
+	mkdir -p out
+	clang++ $< -o $@ $(CXXFLAGS) $(LDFLAGS)
 
 clean:
-	rm -f JITDemo
+	rm -f out/*
