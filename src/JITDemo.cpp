@@ -39,12 +39,15 @@ llvm::ExecutionEngine* createExecEngine(llvm::Module* module, std::string* errSt
   return ee;
 }
 
-void execMainFunc(llvm::ExecutionEngine* ee) {
-  std::cout << "[Debug] Jitting and executing main function of the IR module...\n";
+bool execMainFunc(llvm::ExecutionEngine* ee) {
   llvm::Function* mainFunc = ee->FindFunctionNamed("main");
+  if (!mainFunc) {
+    return false;
+  }
   void* nativeMainFunc = ee->getPointerToFunction(mainFunc);
   typedef int (*pMainType)();
   reinterpret_cast<pMainType>(nativeMainFunc)();
+  return true;
 }
 
 int main(int argc, char** argv) {
@@ -71,6 +74,9 @@ int main(int argc, char** argv) {
   }
 
   // Run 'main' function
-  execMainFunc(ee);
+  std::cerr << "[Debug] Jitting and executing main function of the IR module...\n";
+  if (!execMainFunc(ee)) {
+    std::cerr << "[Debug] Error! Cannot find main function.\n";
+  }
   delete ee;
 }
