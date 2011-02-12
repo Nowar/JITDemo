@@ -22,11 +22,13 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Target/TargetSelect.h"
 
-#include "Usage.hpp"
-
 int main(int argc, char** argv) {
   if (argc != 2) {
-    Usage::showUsage(llvm::outs(), argv[0]);
+    llvm::raw_ostream& os = llvm::outs();
+    os << "Usage: " << argv[0] << " LLVM-IR-file\n";
+    os << argv[0] << " is a trivial JIT-Compiler using LLVM.\n";
+    os << "It reads LLVM module from the input argument, creates a JIT-Compiler, and runs on 'main' function.\n";
+    os << "Note: We assume 'main' needs no arguments.\n";
     return 1;
   }
 

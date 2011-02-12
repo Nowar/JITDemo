@@ -19,11 +19,18 @@ if [ -d $1 ]; then
   out_diff=$(echo $?)
   $(diff $src_dir/stderr $src_dir/stderr.expect > /dev/null 2> /dev/null)
   err_diff=$(echo $?)
+  
+  hasErr=0
   if [ $out_diff -ne 0 ]; then
     echo "Error: stdout is not correct."
+    hasErr=1
   fi
   if [ $err_diff -ne 0 ]; then
     echo "Error: stderr is not correct."
+    hasErr=1
+  fi
+  if [ $hasErr -eq 0 ]; then
+    echo "No error."
   fi
 else
   showUsage

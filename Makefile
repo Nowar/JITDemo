@@ -18,9 +18,7 @@ define warnDebugVersion
 	@echo "*******************"
 endef
 
-header_files := include/Usage.hpp
-
-src_files := tools/demo.cpp
+src_files := src/main.cpp
 
 all_files := $(header_files) $(src_files) Makefile
 
@@ -35,4 +33,4 @@ endif
 	
 
 clean:
-	rm -f out/*
+	rm -rf out/
