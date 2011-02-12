@@ -18,14 +18,17 @@ define warnDebugVersion
 	@echo "*******************"
 endef
 
-src_files := lib/JITer.cpp \
-						 tools/demo.cpp
+header_files := include/Usage.hpp
+
+src_files := tools/demo.cpp
+
+all_files := $(header_files) $(src_files) Makefile
 
 all : out/demo
 
-out/demo : $(src_files)
+out/demo : $(all_files)
 	$(init)
-	clang++ $^ -o $@ $(CXXFLAGS) $(LDFLAGS)
+	clang++ $(filter %.cpp, $^) -o $@ $(CXXFLAGS) $(LDFLAGS)
 ifeq ($(DEBUG), 1)
 	$(warnDebugVersion)
 endif
